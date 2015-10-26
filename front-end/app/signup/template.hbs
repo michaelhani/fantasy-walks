@@ -1,0 +1,18 @@
+{{errors}}
+<h1>SIGNUP</h1>
+<div>
+	<p>
+		<label for="email">Email</label>
+		{{input value=email}}
+	</p>
+	<p>
+		<label for="password">Password</label>
+		{{input value=password type="password"}}
+	</p>
+	<p>
+		<label for="password_confirmation">Confirm Password</label>
+		{{input value=password_confirmation type="password"}}
+	</p>
+	<button{{action 'signup'}}>Sign Up</button>
+</div>
+{{outlet}}
