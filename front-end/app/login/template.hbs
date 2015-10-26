@@ -1,2 +1,13 @@
-<h1>LOGIN</h1>
-{{outlet}}
+{{errors}}
+<h1>Log In</h1>
+<div>
+  <p>
+    <label for="email">Email</label>
+    {{input value=email}}
+  </p>
+  <p>
+    <label for="password">Password</label>
+    {{input value=password type="password"}}
+  </p>
+  <button {{action 'logIn'}}>Log In</button>
+</div>

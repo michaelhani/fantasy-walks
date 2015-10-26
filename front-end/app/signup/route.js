@@ -12,7 +12,7 @@ export default Ember.Route.extend({
 				type: "POST",
 				success: function(response){
 					if(response.token){
-						$.cookie('token', response.token, { expires: 30 });
+						Ember.$.cookie('token', response.token, { expires: 30 });
 						self.controllerFor('application').set('user', response.user_id);
 						self.transitionTo('messages');
 					} else {

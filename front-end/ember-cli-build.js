@@ -6,8 +6,8 @@ module.exports = function(defaults) {
     // Add options here
   });
 
-  app.import('bower_components/<jquery class="cookie"></jquery>/jquery.cookie.js');
   app.import('bower_components/jquery/dist/jquery.min.js');
+  app.import('bower_components/jquery.cookie/jquery.cookie.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.
