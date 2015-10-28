@@ -4,6 +4,8 @@ var initialZoom=3;
 var imageWraps=false; //SET THIS TO false TO PREVENT THE IMAGE WRAPPING AROUND
 var map; //the GMap3 itself
 var poly; //map path object
+var places=[];
+var path;
 var gmicMapType;
 function GMICMapType() {
     this.Cache = Array();
@@ -93,7 +95,7 @@ function load() {
     var latlng = new google.maps.LatLng(centreLat, centreLon);
     var myOptions = {
         zoom: initialZoom,
-        minZoom: 0,
+        minZoom: 2,
         maxZoom: 5,
         center: latlng,
         panControl: true,
@@ -111,13 +113,14 @@ function load() {
     var geocoder = new google.maps.Geocoder;
     var infowindow = new google.maps.InfoWindow;
 ///////////////////BEGIN SHIRE INFO///////////////
-//this  can be used as a template to define any other location markers
+// this  can be used as a template to define any other location markers
  var Shire = new google.maps.Marker({ //define marker for the shire
      position: new google.maps.LatLng(40.17887331434696, -48.251953125),
-     map:map,
-     // icon: image,
+     map:null,
+     animation: google.maps.Animation.DROP,
      title: "The Shire"
  });
+ places.push(Shire);
  var shireinfo = new google.maps.InfoWindow({ //defines content for the shire infowindow
      content:"The Shire"
  })
@@ -125,7 +128,21 @@ function load() {
     shireinfo.open(map,Shire);
  })
 /////////////////////END SHIRE INFO///////////////
-
+/////////////////////WEATHERTOP INFO///////////////
+ var Weathertop = new google.maps.Marker({ //define marker for the Weathertop
+     position: new google.maps.LatLng(43.8028187190472, -16.4794921875),
+     map:null,
+     animation: google.maps.Animation.DROP,
+     title: "Weathertop"
+ });
+ var Weathertopinfo = new google.maps.InfoWindow({ //defines content for the Weathertop infowindow
+     content:"Weathertop"
+ })
+ Weathertop.addListener("click", function(){ //opens info window when you click on the Weathertop's marker
+    Weathertopinfo.open(map,Weathertop);
+ })
+ places.push(Weathertop);
+// //////////////////////////////////////////////////
 
 var lineSymbol = {
     path: 'M 0,-1 0,1',
@@ -142,25 +159,47 @@ poly = new google.maps.Polyline({
     }],
 });
 poly.setMap(map);
-
+path = poly.getPath();
+// path.push(Shire.position);
+// path.push(Weathertop.position);
    // animateCircle(poly);
 
 
   // Add a listener for the click event
-  map.addListener('click', addLatLng);
+  // map.addListener('click', addLatLng);
 }
 ///////////////////END MAP LOADING FUNCTION////////////////////
 
-// function animateCircle(poly) { //initiates the function that animates the map path
-//     var count = 0;
-//     window.setInterval(function() {
-//       count = (count + 1) % 200;
+function dropPins(){
+    // for (var i = 0; i < places.length; i++) {
+        places[0].setMap(map);
+        path.push(places[0].position);
+    // };
+}
+function dropPin2(){
+    // for (var i = 0; i < places.length; i++) {
+        places[1].setMap(map);
+        path.push(places[1].position);
+    // };
+}
+function hidePins(){
+    for (var i = 0; i < places.length; i++) {
+        places[i].setMap(null)
+    };
+}
 
-//       var icons = poly.get('icons');
-//       icons[0].offset = (count / 1) + '%';
-//       poly.set('icons', icons);
-//   }, 20);
-// }
+function animateCircle(poly) { //initiates the function that animates the map path
+    var count = 0;
+    window.setInterval(function() {
+      count = (count + 1) % 200;
+
+      var icons = poly.get('icons');
+      icons[0].offset = (count / 1) + '%';
+      poly.set('icons', icons);
+  }, 20);
+}
+
+
 // Handles click events on a map, and adds a new point to the Polyline.
 function addLatLng(event) {
   var path = poly.getPath();
@@ -176,7 +215,6 @@ function addLatLng(event) {
     map: map
   });
   var infowindow = new google.maps.InfoWindow;
-
   infowindow.setContent(event.latLng.toString());
   infowindow.open(map, marker);
 }
