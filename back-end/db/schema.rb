@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026001040) do
+ActiveRecord::Schema.define(version: 20151027174258) do
 
   create_table "api_tokens", force: :cascade do |t|
     t.string   "token"
@@ -21,6 +21,15 @@ ActiveRecord::Schema.define(version: 20151026001040) do
   end
 
   add_index "api_tokens", ["user_id"], name: "index_api_tokens_on_user_id"
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "miles"
+    t.integer  "days"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
