@@ -116,7 +116,7 @@ function load() {
 // this  can be used as a template to define any other location markers
  var Shire = new google.maps.Marker({ //define marker for the shire
      position: new google.maps.LatLng(40.17887331434696, -48.251953125),
-     map:null,
+     map:null, //setting this to null means the pin is created but not rendered until a function renders it
      animation: google.maps.Animation.DROP,
      title: "The Shire"
  });
@@ -128,6 +128,7 @@ function load() {
     shireinfo.open(map,Shire);
  })
 /////////////////////END SHIRE INFO///////////////
+
 /////////////////////WEATHERTOP INFO///////////////
  var Weathertop = new google.maps.Marker({ //define marker for the Weathertop
      position: new google.maps.LatLng(43.8028187190472, -16.4794921875),
@@ -144,70 +145,58 @@ function load() {
  places.push(Weathertop);
 // //////////////////////////////////////////////////
 
-var lineSymbol = {
-    path: 'M 0,-1 0,1',
-    strokeOpacity: 1,
-    scale: 4
+var lineSymbol = { //defines the symbol to be rendered along the path 
+    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW
 };
 poly = new google.maps.Polyline({
     strokeColor: '#000000',
-    strokeOpacity: 0,
+    strokeOpacity: 1,
     icons: [{
         icon: lineSymbol,
-        offset: '0',
-        repeat: '20px'
+        offset: '70%' //offset is the setting to change for progress along a path
     }],
 });
 poly.setMap(map);
 path = poly.getPath();
 // path.push(Shire.position);
 // path.push(Weathertop.position);
-   // animateCircle(poly);
 
+animateArrow(poly); //turning the fuction on/off will make the arrow move along the path
 
   // Add a listener for the click event
   // map.addListener('click', addLatLng);
 }
 ///////////////////END MAP LOADING FUNCTION////////////////////
 
-function dropPins(){
-    // for (var i = 0; i < places.length; i++) {
-        places[0].setMap(map);
-        path.push(places[0].position);
-    // };
-}
-function dropPin2(){
-    // for (var i = 0; i < places.length; i++) {
-        places[1].setMap(map);
-        path.push(places[1].position);
-    // };
+function dropPins(num){ //num defines how many pins to drop, can be chnged based on user's progress
+    poly.setMap(map);
+    for (var i = 0; i <= num; i++) {
+        places[i].setMap(map);
+        path.push(places[i].position);
+    };
 }
 function hidePins(){
     for (var i = 0; i < places.length; i++) {
-        places[i].setMap(null)
+        places[i].setMap(null);
+        path.pop();
     };
 }
-
-function animateCircle(poly) { //initiates the function that animates the map path
+var movementInterval = 40; //dictates speed of arrow movement, higher = slower
+function animateArrow(poly) { //initiates the function that animates the map path
     var count = 0;
     window.setInterval(function() {
-      count = (count + 1) % 200;
-
+      count = (count + 1) % 80; //changing the mod amount to twice a percentage will dictate the max progress
       var icons = poly.get('icons');
-      icons[0].offset = (count / 1) + '%';
+      icons[0].offset = (count/2) + '%';
       poly.set('icons', icons);
-  }, 20);
+  }, movementInterval);
 }
 
 
 // Handles click events on a map, and adds a new point to the Polyline.
 function addLatLng(event) {
   var path = poly.getPath();
-
-  // Because path is an MVCArray, we can simply append a new coordinate
-  // and it will automatically appear.
-  path.push(event.latLng);
-
+  // path.push(event.latLng);
   // Add a new marker at the new plotted point on the polyline.
   var marker = new google.maps.Marker({
     position: event.latLng,
