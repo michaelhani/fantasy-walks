@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
+
+  # root "fitbit_auth#index"
+
+  # =>"fitbit_auth#index"
+
   get 'sessions/hello' => 'sessions#hello'
+  get "/auth/fitbit/callback" => "fitbit_auth#get_response"
+
+  # fitbit oauth
+  post "/auth/fitbit" => "fitbit_auth#make_request"
+ 
   post 'users' => 'users#create'
   post 'sessions' => 'sessions#create'
   delete 'sessions' => 'sessions#destroy'
