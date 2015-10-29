@@ -1,13 +1,15 @@
-{{errors}}
-<h1>Log In</h1>
-<div>
-  <p>
-    <label for="email">Email</label>
-    {{input value=email}}
-  </p>
-  <p>
-    <label for="password">Password</label>
-    {{input value=password type="password"}}
-  </p>
-  <button {{action 'logIn'}}>Log In</button>
+<div class="centerize">
+<!-- <h1 class="title_text">Log In</h1> -->
+	<div class="errors">{{errors}}</div>
+	<form>
+	  <p>
+	    <label for="email">Email</label>
+	    {{input class="heroic_input" value=email}}
+	  </p>
+	  <p>
+	    <label for="password">Password</label>
+	    {{input class="heroic_input" value=password type="password"}}
+	  </p>
+	  <button class="title_text" {{action 'logIn'}}>Resume</button>
+	</form>
 </div>

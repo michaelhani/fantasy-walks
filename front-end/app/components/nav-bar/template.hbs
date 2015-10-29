@@ -1,4 +1,9 @@
-{{#link-to 'login'}}Log In{{/link-to}}
-{{#link-to 'signup'}}Sign Up{{/link-to}}
-{{#link-to 'messages'}}Messages{{/link-to}}
-<button {{action 'logout'}}>Log Out</button>
+<nav id="navigation">
+	<ul>
+		<li>{{#link-to 'login'}}Log In{{/link-to}}</li> |
+		<li>{{#link-to 'signup'}}Sign Up{{/link-to}}</li> |
+		<li>{{#link-to 'dashboard'}}Dashboard{{/link-to}}</li>
+		<li class="pull-right"><button {{action 'logout'}}>Log Out</button></li>
+	</ul>
+</nav>
+

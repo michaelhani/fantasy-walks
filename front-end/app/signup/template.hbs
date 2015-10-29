@@ -1,18 +1,30 @@
-{{errors}}
-<h1>SIGNUP</h1>
-<div>
-	<p>
-		<label for="email">Email</label>
-		{{input value=email}}
-	</p>
-	<p>
-		<label for="password">Password</label>
-		{{input value=password type="password"}}
-	</p>
-	<p>
-		<label for="password_confirmation">Confirm Password</label>
-		{{input value=password_confirmation type="password"}}
-	</p>
-	<button{{action 'signup'}}>Sign Up</button>
+<div class="centerize">
+<div class="row">
+	
 </div>
+
+	<div class="row">
+		<p>
+			{{#if errors}}
+				<div class="errors">{{errors}}</div>
+			{{/if}}
+			<label for="email">Email</label>
+			{{input class="heroic_input" value=email}}
+		</p>
+	</div>
+
+	<div class="row">
+		<div class="col-3">
+			<label for="password">Password</label>
+			{{input class="less heroic_input" value=password type="password" on="key-press"}}
+		</div>
+		<div class="col-3">
+			<label for="password_confirmation">Confirm</label>
+			{{input class="heroic_input" value=password_confirmation type="password" on="key-press"}}
+		</div>
+		<button{{action 'signUp'}}>Embark</button>
+	</div>
+
+</div>
+
 {{outlet}}

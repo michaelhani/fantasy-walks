@@ -3,10 +3,10 @@ export default Ember.Route.extend({
   actions: {
     logout: function() {
       var self = this;
-      $.ajaxSetup({
+      Ember.$.ajaxSetup({
         headers: { 'token': $.cookie('token') }
       });
-      $.ajax({
+      Ember.$.ajax({
         url: 'http://localhost:3000/sessions',
         type: 'DELETE',
         success: function(res) {
@@ -14,7 +14,7 @@ export default Ember.Route.extend({
           self.controllerFor('application').set('user', null);
           self.transitionTo('login');
         }
-      })
+      });
     }
   }
 });
