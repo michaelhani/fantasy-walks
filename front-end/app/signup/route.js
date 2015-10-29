@@ -15,7 +15,9 @@ export default Ember.Route.extend({
 						$.cookie('token', response.token, { expires: 30 });
 						self.controllerFor('application').set('user', response.user_id);
 						
-						self.transitionTo('messages');
+						//Here we check if you have the fitbit auth uid, token, and secret
+
+						self.transitionTo('fitbit');
 					} else {
 						self.controller.set('errors', response.errors);
 					}

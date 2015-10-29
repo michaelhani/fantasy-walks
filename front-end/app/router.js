@@ -9,6 +9,7 @@ Router.map(function() {
   this.route('signup');
   this.route('login');
   this.route('dashboard');
+  this.route('fitbit');
 });
 
 export default Router;

@@ -11,21 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029073711) do
+ActiveRecord::Schema.define(version: 20151029180411) do
+
+  create_table "accomplishments", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "event"
+    t.date     "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "accomplishments", ["user_id"], name: "index_accomplishments_on_user_id"
 
   create_table "api_tokens", force: :cascade do |t|
     t.string   "token"
     t.integer  "user_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.string   "fitbit_user_id"
-    t.string   "user_secret"
-    t.string   "user_token"
-    t.string   "consumer_key"
-    t.string   "consumer_secret"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "api_tokens", ["user_id"], name: "index_api_tokens_on_user_id"
+
+  create_table "fitbits", force: :cascade do |t|
+    t.string   "fitbit_uid"
+    t.string   "fitbit_secret"
+    t.string   "fitbit_token"
+    t.integer  "user_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "fitbits", ["user_id"], name: "index_fitbits_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email"

@@ -4,7 +4,10 @@ class SessionsController < ApplicationController
 		token = request.headers["token"]
 		valid_token = ApiToken.find_by(token: token)
 		if valid_token
+			session[:user_id] = valid_token.user_id
+			
 			render json: {valid: true}
+
 		else 
 			render json: {valid: false}
 		end
