@@ -13,6 +13,11 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
+# Fitbit
+gem 'omniauth-fitbit'
+gem 'fitgem'
+# Environmental Variables
+gem 'dotenv-rails'
 # Using rack-cors for ember front-end access permissions
 gem 'rack-cors'
 # hirb will help with nice database entries
