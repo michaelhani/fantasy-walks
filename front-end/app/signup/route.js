@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 	actions: {
-		signUp: function(){
+		signup: function(){
 			var self = this;
 			var user = {email: self.controller.get('email'), password: self.controller.get('password'), password_confirmation: self.controller.get('password_confirmation')};
 			Ember.$.ajax({
