@@ -12,14 +12,14 @@ export default Ember.Route.extend({
 				type: "POST",
 				success: function(response){
 					if(response.token){
-						Ember.$.cookie('token', response.token, { expires: 30 });
+						$.cookie('token', response.token, { expires: 30 });
 						self.controllerFor('application').set('user', response.user_id);
 						self.transitionTo('messages');
 					} else {
 						self.controller.set('errors', response.errors);
 					}
 				}
-			})
+			});
 		}
 	}
 });

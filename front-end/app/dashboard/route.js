@@ -11,7 +11,7 @@ export default Ember.Route.extend({
 			if(res.valid === false){
 				self.transitionTo('login');
 			} else {
-				console.log("message routing: valid credentials affirmed")
+				console.log("dashboard routing: valid credentials affirmed")
 			}
 		});
 	}.on('activate')
